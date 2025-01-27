@@ -24,19 +24,17 @@ data class Card(val suit: Suit, val rank: Rank) {
     override fun toString(): String = "$rank of $suit"
 }
 
-class Deck {
-    private val cards = mutableListOf<Card>()
+data class Deck(val cards: List<Card> = createFullDeck()) {
 
-    init {
-        for (suit in Suit.entries) {
-            for (rank in Rank.entries) {
-                cards.add(Card(suit, rank))
+    companion object {
+        private fun createFullDeck(): List<Card> {
+            return Suit.entries.flatMap { suit ->
+                Rank.entries.map { rank -> Card(suit, rank) }
             }
         }
     }
 
-
-    fun size() = cards.size
+    fun size(): Int = cards.size
 
     override fun toString(): String = cards.joinToString("\n")
 }
