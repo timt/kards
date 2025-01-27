@@ -1,16 +1,47 @@
 package io.shaka
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-fun main() {
-    val name = "Kotlin"
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    println("Hello, " + name + "!")
+enum class Suit {
+    HEARTS, DIAMONDS, CLUBS, SPADES
+}
 
-    for (i in 1..5) {
-        //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-        // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-        println("i = $i")
+enum class Rank(val defaultOrder: Int) {
+    ACE(1),
+    TWO(2),
+    THREE(3),
+    FOUR(4),
+    FIVE(5),
+    SIX(6),
+    SEVEN(7),
+    EIGHT(8),
+    NINE(9),
+    TEN(10),
+    JACK(11),
+    QUEEN(12),
+    KING(13)
+}
+
+data class Card(val suit: Suit, val rank: Rank) {
+    override fun toString(): String = "$rank of $suit"
+}
+
+class Deck {
+    private val cards = mutableListOf<Card>()
+
+    init {
+        for (suit in Suit.entries) {
+            for (rank in Rank.entries) {
+                cards.add(Card(suit, rank))
+            }
+        }
     }
+
+
+    fun size() = cards.size
+
+    override fun toString(): String = cards.joinToString("\n")
+}
+
+fun main() {
+    val deck = Deck()
+    println(deck.size())
 }
