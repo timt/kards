@@ -41,6 +41,16 @@ data class Deck(val cards: List<Card> = createFullDeck()) {
     fun shuffle(): Deck {
         return Deck(cards.shuffled())
     }
+
+    fun dealCard(): Pair<Card?, Deck> {
+        return if (cards.isNotEmpty()) {
+            val dealtCard = cards.first()
+            val remainingDeck = Deck(cards.drop(1))
+            dealtCard to remainingDeck
+        } else {
+            null to this
+        }
+    }
 }
 
 fun main() {

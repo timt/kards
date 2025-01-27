@@ -19,4 +19,12 @@ class DeckTest {
 
         assertNotEquals(originalDeck, originalDeck.shuffle())
     }
+
+    @Test
+    fun `Can deal a card`(){
+        val deck = Deck()
+        val (dealtCard, remainingDeck) = deck.dealCard()
+        assertNotNull(dealtCard)
+        assertEquals(51, remainingDeck.size())
+    }
 }
