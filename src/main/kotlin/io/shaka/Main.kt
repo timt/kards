@@ -34,9 +34,13 @@ data class Deck(val cards: List<Card> = createFullDeck()) {
         }
     }
 
+    override fun toString(): String = cards.joinToString("\n")
+
     fun size(): Int = cards.size
 
-    override fun toString(): String = cards.joinToString("\n")
+    fun shuffle(): Deck {
+        return Deck(cards.shuffled())
+    }
 }
 
 fun main() {

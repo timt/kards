@@ -10,5 +10,13 @@ class DeckTest {
         assertEquals(52, deck.size())
     }
 
+    @Test
+    fun `can shuffle a deck`() {
+        val originalDeck = Deck()
+        val secondDeck = originalDeck.copy()
 
+        assertEquals(originalDeck, secondDeck)
+
+        assertNotEquals(originalDeck, originalDeck.shuffle())
+    }
 }
