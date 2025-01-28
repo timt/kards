@@ -27,4 +27,9 @@ class DeckTest {
         assertNotNull(dealtCard)
         assertEquals(51, remainingDeck.size())
     }
+
+    @Test
+    fun `Does slack failure`(){
+        assertEquals(1, 2)
+    }
 }
