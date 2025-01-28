@@ -31,7 +31,7 @@ jobs:
       - name: Post build results to Slack
         if: always() # Ensures this step runs regardless of success/failure
         run: |
-            STATUS=$([ "$GITHUB_JOB" == "success" ] && echo "passed" || echo "failed")
+            STATUS=$([[ "${{ job.status }}" == "success" ]] && echo "passed" || echo "failed")
             curl -X POST -H "Authorization: Bearer ${{ secrets.SLACK_TOKEN }}" \
             -H 'Content-type: application/json' \
             --data "{
