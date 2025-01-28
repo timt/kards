@@ -29,7 +29,7 @@ jobs:
         run: ./gradlew test
 
       - name: Post build results to Slack
-        if: always() # Ensures this step runs regardless of success/failure
+        if: failure()
         run: |
             STATUS=$([[ "${{ job.status }}" == "success" ]] && echo "passed" || echo "failed")
             curl -X POST -H "Authorization: Bearer ${{ secrets.SLACK_TOKEN }}" \
