@@ -36,5 +36,5 @@ jobs:
             -H 'Content-type: application/json' \
             --data '{
               "channel": "${{ secrets.SLACK_CHANNEL }}",
-              "text": "Build *${STATUS}*: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View results here>"
+              "text": "Build *$STATUS*: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View results here>"
             }' https://slack.com/api/chat.postMessage
