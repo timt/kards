@@ -34,7 +34,7 @@ jobs:
             STATUS=$([ "$GITHUB_JOB" == "success" ] && echo "passed" || echo "failed")
             curl -X POST -H "Authorization: Bearer ${{ secrets.SLACK_TOKEN }}" \
             -H 'Content-type: application/json' \
-            --data '{
-              "channel": "${{ secrets.SLACK_CHANNEL }}",
-              "text": "Build *$STATUS*: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View results here>"
-            }' https://slack.com/api/chat.postMessage
+            --data "{
+              \"channel\": \"${{ secrets.SLACK_CHANNEL }}\",
+              \"text\": \"Build *$STATUS*: <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|View results here>\"
+            }" https://slack.com/api/chat.postMessage
