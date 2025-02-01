@@ -1,4 +1,8 @@
 import io.shaka.Deck
+import io.shaka.deal
+import io.shaka.dealCard
+import io.shaka.shuffle
+import io.shaka.size
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -26,6 +30,19 @@ class DeckTest {
         val (dealtCard, remainingDeck) = deck.dealCard()
         assertNotNull(dealtCard)
         assertEquals(51, remainingDeck.size())
+    }
+
+    @Test
+    fun `Deal x cards to y players`(){
+        val (hands, remainingDeck) = Deck()
+            .shuffle()
+            .deal(cards = 5, players = 2)
+
+        val (hand1, hand2) = hands
+
+        assertEquals(5, hand1.size)
+        assertEquals(5, hand2.size)
+        assertEquals(42, remainingDeck.size())
     }
 
 }

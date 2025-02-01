@@ -1,34 +1,5 @@
 package io.shaka
 
-data class Deck(val cards: List<Card> = createFullDeck()) {
-
-    companion object {
-        private fun createFullDeck(): List<Card> {
-            return Suit.entries.flatMap { suit ->
-                Rank.entries.map { rank -> Card(suit, rank) }
-            }
-        }
-    }
-
-    override fun toString(): String = cards.joinToString("\n")
-
-    fun size(): Int = cards.size
-
-    fun shuffle(): Deck {
-        return Deck(cards.shuffled())
-    }
-
-    fun dealCard(): Pair<Card?, Deck> {
-        return if (cards.isNotEmpty()) {
-            val dealtCard = cards.first()
-            val remainingDeck = Deck(cards.drop(1))
-            dealtCard to remainingDeck
-        } else {
-            null to this
-        }
-    }
-}
-
 enum class Suit {
     HEARTS, DIAMONDS, CLUBS, SPADES
 }
@@ -48,6 +19,43 @@ enum class Rank(val defaultOrder: Int) {
     QUEEN(12),
     KING(13)
 }
+
+data class Deck(val cards: List<Card> = createFullDeck()) {
+
+    companion object {
+        private fun createFullDeck(): List<Card> = Suit.entries.flatMap { suit ->
+            Rank.entries.map { rank -> Card(suit, rank) }
+        }
+    }
+
+}
+
+fun Deck.deal(cards: Int, players: Int): Pair<List<List<Card>>, Deck> {
+    val hands = List(players) { mutableListOf<Card>() }
+    var remainingDeck = this
+    repeat(cards) {
+        hands.forEach { hand ->
+            val (dealtCard, newDeck) = remainingDeck.dealCard()
+            dealtCard?.let { hand.add(it) }
+            remainingDeck = newDeck
+        }
+    }
+    return hands to remainingDeck
+}
+
+fun Deck.dealCard(): Pair<Card?, Deck> = if (cards.isNotEmpty()) {
+    val dealtCard = cards.first()
+    val remainingDeck = Deck(cards.drop(1))
+    dealtCard to remainingDeck
+} else {
+    null to this
+}
+
+fun Deck.size(): Int = cards.size
+
+fun Deck.shuffle(): Deck = Deck(cards.shuffled())
+
+
 
 data class Card(val suit: Suit, val rank: Rank) {
     override fun toString(): String = "$rank of $suit"
