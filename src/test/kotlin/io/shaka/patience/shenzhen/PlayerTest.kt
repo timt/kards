@@ -12,11 +12,11 @@ class PlayerTest{
    val (hands, remainingDeck) = Deck()
     .shuffle()
     .deal(cards = 26, players = 1)
-   val (hand) = hands
-   val player = Player(stock = hand)
+   val (startingStock) = hands
+   val player = Player(stock = startingStock)
 
     val currentPlayer = player.drawCard()
     assertEquals(currentPlayer.stock.size, 25)
-    assertEquals(currentPlayer.inHand, hand.first())
+    assertEquals(currentPlayer.inHand, startingStock.first())
   }
  }
