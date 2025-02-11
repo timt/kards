@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 class PlayerTest{
   @Test
   fun `A player can draw a card from their stock`(){
-   val (hands, remainingDeck) = Deck()
+   val (hands, _) = Deck()
     .shuffle()
     .deal(cards = 26, players = 1)
    val (startingStock) = hands
