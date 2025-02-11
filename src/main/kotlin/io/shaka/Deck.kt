@@ -1,7 +1,13 @@
 package io.shaka
 
-enum class Suit {
-    HEARTS, DIAMONDS, CLUBS, SPADES
+import io.shaka.SuitColor.BLACK
+import io.shaka.SuitColor.RED
+
+enum class SuitColor {
+    RED, BLACK
+}
+enum class Suit(val color: SuitColor) {
+    HEARTS(RED), DIAMONDS(RED), CLUBS(BLACK), SPADES(BLACK)
 }
 
 enum class Rank(val defaultOrder: Int) {
